@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+$finder = PhpCsFixer\Finder::create()
+    ->files()
+    ->name('*.php')
+    ->in(__DIR__ . '/src')
+    ->in(__DIR__ . '/tests')
+;
+
+/** @var array $config */
+$config = require __DIR__ . '/vendor/chubbyphp/chubbyphp-dev-helper/phpcs.php';
+
+// drop onces code is >= 8.0
+unset($config['rules']['phpdoc_to_return_type']);
+
+// drop once DateTimeFieldDenormalizer gets dropped
+unset($config['rules']['date_time_immutable']);
+
+return (new PhpCsFixer\Config)
+    ->setIndent($config['indent'])
+    ->setLineEnding($config['lineEnding'])
+    ->setRules($config['rules'])
+    ->setRiskyAllowed($config['riskyAllowed'])
+    ->setFinder($finder)
+;
