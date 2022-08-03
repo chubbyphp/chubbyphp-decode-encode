@@ -45,7 +45,39 @@ composer require chubbyphp/chubbyphp-decode-encode "^1.0"
 
 ### Decoder
 
- * [Decoder][2]
+```php
+<?php
+
+use Chubbyphp\DecodeEncode\Decoder\Decoder;
+use Chubbyphp\DecodeEncode\Decoder\JsonTypeDecoder;
+use Chubbyphp\DecodeEncode\Decoder\JsonxTypeDecoder;
+use Chubbyphp\DecodeEncode\Decoder\UrlEncodedTypeDecoder;
+use Chubbyphp\DecodeEncode\Decoder\XmlTypeDecoder;
+use Chubbyphp\DecodeEncode\Decoder\YamlTypeDecoder;
+
+$decoder = new Decoder([
+    new JsonTypeDecoder(),
+    new JsonxTypeDecoder(),
+    new UrlEncodedTypeDecoder(),
+    new XmlTypeDecoder(),
+    new YamlTypeDecoder()
+]);
+
+print_r($decoder->getContentTypes());
+//[
+//    'application/json',
+//    'application/jsonx+xml',
+//    'application/x-www-form-urlencoded',
+//    'application/xml',
+//    'application/x-yaml'
+//]
+
+print_r($decoder->decode(
+    '{"name": "php"}',
+    'application/json'
+));
+// ['name' => 'php']
+```
 
 #### Type Decoder
 
@@ -57,7 +89,41 @@ composer require chubbyphp/chubbyphp-decode-encode "^1.0"
 
 ### Encoder
 
- * [Encoder][10]
+# Encoder
+
+```php
+<?php
+
+use Chubbyphp\DecodeEncode\Encoder\Encoder;
+use Chubbyphp\DecodeEncode\Encoder\JsonTypeEncoder;
+use Chubbyphp\DecodeEncode\Encoder\JsonxTypeEncoder;
+use Chubbyphp\DecodeEncode\Encoder\UrlEncodedTypeEncoder;
+use Chubbyphp\DecodeEncode\Encoder\XmlTypeEncoder;
+use Chubbyphp\DecodeEncode\Encoder\YamlTypeEncoder;
+
+$encoder = new Encoder([
+    new JsonTypeEncoder(),
+    new JsonxTypeEncoder(),
+    new UrlEncodedTypeEncoder(),
+    new XmlTypeEncoder(),
+    new YamlTypeEncoder()
+]);
+
+print_r($encoder->getContentTypes());
+//[
+//    'application/json',
+//    'application/jsonx+xml',
+//    'application/x-www-form-urlencoded',
+//    'application/xml',
+//    'application/x-yaml'
+//]
+
+echo $encoder->encode(
+    ['name' => 'php'],
+    'application/json'
+);
+// '{"name": "php"}'
+```
 
 #### Type Encoder
 
@@ -81,15 +147,11 @@ Dominik Zogg 2022
 
 [1]: https://packagist.org/packages/chubbyphp/chubbyphp-decode-encode
 
-[2]: doc/Decoder/Decoder.md
-
 [3]: doc/Decoder/JsonTypeDecoder.md
 [4]: doc/Decoder/JsonxTypeDecoder.md
 [5]: doc/Decoder/UrlEncodedTypeDecoder.md
 [6]: doc/Decoder/XmlTypeDecoder.md
 [7]: doc/Decoder/YamlTypeDecoder.md
-
-[10]: doc/Encoder/Encoder.md
 
 [11]: doc/Encoder/JsonTypeEncoder.md
 [12]: doc/Encoder/JsonxTypeEncoder.md
