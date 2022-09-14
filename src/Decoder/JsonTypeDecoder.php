@@ -14,9 +14,9 @@ final class JsonTypeDecoder implements TypeDecoderInterface
     }
 
     /**
-     * @throws RuntimeException
-     *
      * @return array<string, null|array|bool|float|int|string>
+     *
+     * @throws RuntimeException
      */
     public function decode(string $data): array
     {
