@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace Chubbyphp\Tests\DecodeEncode\Unit\Encoder;
 
 use Chubbyphp\DecodeEncode\Encoder\JsonTypeEncoder;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Chubbyphp\DecodeEncode\Encoder\JsonTypeEncoder
  *
  * @internal
  */
-final class JsonTypeEncoderTest extends AbstractTypeEncoderTest
+final class JsonTypeEncoderTest extends TestCase
 {
     public function testContentType(): void
     {
@@ -20,9 +22,7 @@ final class JsonTypeEncoderTest extends AbstractTypeEncoderTest
         self::assertSame('application/json', $encoder->getContentType());
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProviderExternal(TypeEncoderDataProvider::class, 'getExpectedData')]
     public function testFormat(array $data): void
     {
         $jsonencoder = new JsonTypeEncoder(true);

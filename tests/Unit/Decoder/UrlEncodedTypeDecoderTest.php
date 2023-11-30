@@ -6,13 +6,15 @@ namespace Chubbyphp\Tests\DecodeEncode\Unit\Decoder;
 
 use Chubbyphp\DecodeEncode\Decoder\UrlEncodedTypeDecoder;
 use Chubbyphp\DecodeEncode\RuntimeException;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Chubbyphp\DecodeEncode\Decoder\UrlEncodedTypeDecoder
  *
  * @internal
  */
-final class UrlEncodedTypeDecoderTest extends AbstractTypeDecoderTest
+final class UrlEncodedTypeDecoderTest extends TestCase
 {
     public function testGetContentType(): void
     {
@@ -21,9 +23,7 @@ final class UrlEncodedTypeDecoderTest extends AbstractTypeDecoderTest
         self::assertSame('application/x-www-form-urlencoded', $decoder->getContentType());
     }
 
-    /**
-     * @dataProvider getExpectedData
-     */
+    #[DataProviderExternal(TypeDecoderDataProvider::class, 'getExpectedData')]
     public function testDecode(array $expectedData): void
     {
         $decoder = new UrlEncodedTypeDecoder();

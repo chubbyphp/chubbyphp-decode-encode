@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace Chubbyphp\Tests\DecodeEncode\Unit\Encoder;
 
 use Chubbyphp\DecodeEncode\Encoder\YamlTypeEncoder;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Chubbyphp\DecodeEncode\Encoder\YamlTypeEncoder
  *
  * @internal
  */
-final class YamlTypeEncoderTest extends AbstractTypeEncoderTest
+final class YamlTypeEncoderTest extends TestCase
 {
     public function testContentType(): void
     {
@@ -20,9 +22,7 @@ final class YamlTypeEncoderTest extends AbstractTypeEncoderTest
         self::assertSame('application/x-yaml', $encoder->getContentType());
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProviderExternal(TypeEncoderDataProvider::class, 'getExpectedData')]
     public function testFormat(array $data): void
     {
         $yamlencoder = new YamlTypeEncoder();

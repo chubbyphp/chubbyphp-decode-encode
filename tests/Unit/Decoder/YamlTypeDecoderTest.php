@@ -6,13 +6,15 @@ namespace Chubbyphp\Tests\DecodeEncode\Unit\Decoder;
 
 use Chubbyphp\DecodeEncode\Decoder\YamlTypeDecoder;
 use Chubbyphp\DecodeEncode\RuntimeException;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Chubbyphp\DecodeEncode\Decoder\YamlTypeDecoder
  *
  * @internal
  */
-final class YamlTypeDecoderTest extends AbstractTypeDecoderTest
+final class YamlTypeDecoderTest extends TestCase
 {
     public function testGetContentType(): void
     {
@@ -21,9 +23,7 @@ final class YamlTypeDecoderTest extends AbstractTypeDecoderTest
         self::assertSame('application/x-yaml', $decoder->getContentType());
     }
 
-    /**
-     * @dataProvider getExpectedData
-     */
+    #[DataProviderExternal(TypeDecoderDataProvider::class, 'getExpectedData')]
     public function testDecode(array $expectedData): void
     {
         $yaml = <<<'EOD'

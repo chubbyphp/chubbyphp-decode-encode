@@ -6,13 +6,15 @@ namespace Chubbyphp\Tests\DecodeEncode\Unit\Decoder;
 
 use Chubbyphp\DecodeEncode\Decoder\JsonxTypeDecoder;
 use Chubbyphp\DecodeEncode\RuntimeException;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Chubbyphp\DecodeEncode\Decoder\JsonxTypeDecoder
  *
  * @internal
  */
-final class JsonxTypeDecoderTest extends AbstractTypeDecoderTest
+final class JsonxTypeDecoderTest extends TestCase
 {
     public function testGetContentType(): void
     {
@@ -21,9 +23,7 @@ final class JsonxTypeDecoderTest extends AbstractTypeDecoderTest
         self::assertSame('application/jsonx+xml', $decoder->getContentType());
     }
 
-    /**
-     * @dataProvider getExpectedData
-     */
+    #[DataProviderExternal(TypeDecoderDataProvider::class, 'getExpectedData')]
     public function testDecode(array $expectedData): void
     {
         $jsonx = <<<'EOD'

@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace Chubbyphp\Tests\DecodeEncode\Unit\Encoder;
 
 use Chubbyphp\DecodeEncode\Encoder\XmlTypeEncoder;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Chubbyphp\DecodeEncode\Encoder\XmlTypeEncoder
  *
  * @internal
  */
-final class XmlTypeEncoderTest extends AbstractTypeEncoderTest
+final class XmlTypeEncoderTest extends TestCase
 {
     public function testContentType(): void
     {
@@ -20,9 +22,7 @@ final class XmlTypeEncoderTest extends AbstractTypeEncoderTest
         self::assertSame('application/xml', $encoder->getContentType());
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProviderExternal(TypeEncoderDataProvider::class, 'getExpectedData')]
     public function testFormat(array $data): void
     {
         $encoder = new XmlTypeEncoder(true);

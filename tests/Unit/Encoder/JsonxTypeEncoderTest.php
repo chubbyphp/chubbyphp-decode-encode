@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace Chubbyphp\Tests\DecodeEncode\Unit\Encoder;
 
 use Chubbyphp\DecodeEncode\Encoder\JsonxTypeEncoder;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Chubbyphp\DecodeEncode\Encoder\JsonxTypeEncoder
  *
  * @internal
  */
-final class JsonxTypeEncoderTest extends AbstractTypeEncoderTest
+final class JsonxTypeEncoderTest extends TestCase
 {
     public function testContentType(): void
     {
@@ -20,9 +22,7 @@ final class JsonxTypeEncoderTest extends AbstractTypeEncoderTest
         self::assertSame('application/jsonx+xml', $encoder->getContentType());
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProviderExternal(TypeEncoderDataProvider::class, 'getExpectedData')]
     public function testFormat(array $data): void
     {
         $encoder = new JsonxTypeEncoder(true);
@@ -250,8 +250,7 @@ final class JsonxTypeEncoderTest extends AbstractTypeEncoderTest
 
     public function testWithInvalidDataType(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Value needs to be of type array|bool|string|int|float|null, DateTimeImmutable given');
+        $this->expectException(\TypeError::class);
 
         $encoder = new JsonxTypeEncoder(true);
         $encoder->encode(['key' => new \DateTimeImmutable()]);

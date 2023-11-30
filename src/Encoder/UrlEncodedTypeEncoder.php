@@ -47,7 +47,7 @@ final class UrlEncodedTypeEncoder implements TypeEncoderInterface
     /**
      * @throws \InvalidArgumentException
      */
-    private function getValueAsString(\stdClass|bool|float|int|string $value): string
+    private function getValueAsString(bool|float|int|\stdClass|string $value): string
     {
         if (\is_string($value)) {
             return $value;

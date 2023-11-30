@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/chubbyphp/chubbyphp-decode-encode/workflows/CI/badge.svg?branch=master)](https://github.com/chubbyphp/chubbyphp-decode-encode/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/chubbyphp/chubbyphp-decode-encode/badge.svg?branch=master)](https://coveralls.io/github/chubbyphp/chubbyphp-decode-encode?branch=master)
-[![Infection MSI](https://badge.stryker-mutator.io/github.com/chubbyphp/chubbyphp-decode-encode/master)](https://dashboard.stryker-mutator.io/reports/github.com/chubbyphp/chubbyphp-decode-encode/master)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fchubbyphp%2Fchubbyphp-decode-encode%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/chubbyphp/chubbyphp-decode-encode/master)[![Latest Stable Version](https://poser.pugx.org/chubbyphp/chubbyphp-decode-encode/v/stable.png)](https://packagist.org/packages/chubbyphp/chubbyphp-decode-encode)
 [![Latest Stable Version](https://poser.pugx.org/chubbyphp/chubbyphp-decode-encode/v/stable.png)](https://packagist.org/packages/chubbyphp/chubbyphp-decode-encode)
 [![Total Downloads](https://poser.pugx.org/chubbyphp/chubbyphp-decode-encode/downloads.png)](https://packagist.org/packages/chubbyphp/chubbyphp-decode-encode)
 [![Monthly Downloads](https://poser.pugx.org/chubbyphp/chubbyphp-decode-encode/d/monthly)](https://packagist.org/packages/chubbyphp/chubbyphp-decode-encode)
@@ -25,8 +25,8 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 
 ## Requirements
 
- * php: ^8.0
- * symfony/yaml: ^4.4.38|^5.4.5|^6.0
+ * php: ^8.1
+ * symfony/yaml: ^5.4.31|^6.3.8|^7.0
 
 ## Suggest
 
@@ -38,7 +38,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [Composer](http://getcomposer.org) as [chubbyphp/chubbyphp-decode-encode][1].
 
 ```sh
-composer require chubbyphp/chubbyphp-decode-encode "^1.0"
+composer require chubbyphp/chubbyphp-decode-encode "^1.1"
 ```
 
 ## Usage

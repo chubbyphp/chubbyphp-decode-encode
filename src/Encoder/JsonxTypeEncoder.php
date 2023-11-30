@@ -16,9 +16,7 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
     public const DATATYPE_NUMBER = 'number';
     public const DATATYPE_NULL = 'null';
 
-    public function __construct(private bool $prettyPrint = false)
-    {
-    }
+    public function __construct(private bool $prettyPrint = false) {}
 
     public function getContentType(): string
     {
@@ -158,10 +156,7 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
         return $node;
     }
 
-    /**
-     * @param null|array|bool|float|int|string $value
-     */
-    private function getType($value): string
+    private function getType(null|array|bool|float|int|string $value): string
     {
         if (\is_array($value)) {
             if ($value !== array_values($value)) {
@@ -186,12 +181,5 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
         if (null === $value) {
             return self::DATATYPE_NULL;
         }
-
-        throw new \InvalidArgumentException(
-            sprintf(
-                'Value needs to be of type array|bool|string|int|float|null, %s given',
-                get_debug_type($value)
-            )
-        );
     }
 }

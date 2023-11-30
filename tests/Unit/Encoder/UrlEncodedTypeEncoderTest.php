@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace Chubbyphp\Tests\DecodeEncode\Unit\Encoder;
 
 use Chubbyphp\DecodeEncode\Encoder\UrlEncodedTypeEncoder;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Chubbyphp\DecodeEncode\Encoder\UrlEncodedTypeEncoder
  *
  * @internal
  */
-final class UrlEncodedTypeEncoderTest extends AbstractTypeEncoderTest
+final class UrlEncodedTypeEncoderTest extends TestCase
 {
     public function testContentType(): void
     {
@@ -20,9 +22,7 @@ final class UrlEncodedTypeEncoderTest extends AbstractTypeEncoderTest
         self::assertSame('application/x-www-form-urlencoded', $encoder->getContentType());
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProviderExternal(TypeEncoderDataProvider::class, 'getExpectedData')]
     public function testFormat(array $data): void
     {
         $urlEncodedencoder = new UrlEncodedTypeEncoder();

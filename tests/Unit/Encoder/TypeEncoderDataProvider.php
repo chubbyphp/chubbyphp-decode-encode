@@ -4,16 +4,9 @@ declare(strict_types=1);
 
 namespace Chubbyphp\Tests\DecodeEncode\Unit\Encoder;
 
-use PHPUnit\Framework\TestCase;
-
-abstract class AbstractTypeEncoderTest extends TestCase
+final class TypeEncoderDataProvider
 {
-    /**
-     * @dataProvider dataProvider
-     */
-    abstract public function testFormat(array $data);
-
-    final public function dataProvider(): array
+    public static function getExpectedData(): array
     {
         return [
             [
