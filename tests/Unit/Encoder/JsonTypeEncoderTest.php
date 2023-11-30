@@ -219,7 +219,7 @@ final class JsonTypeEncoderTest extends TestCase
             'search' => null,
             'sort' => 'name',
             'order' => 'asc',
-            'filter' => utf8_decode('fieldÁ==value'),
+            'filter' => mb_convert_encoding('fieldÁ==value', 'ISO-8859-1', 'UTF-8'),
             '_links' => [
                 'self' => [
                     'href' => 'http://test.com/items/?page=1&perPage=10&sort=name&order=asc',
@@ -233,31 +233,12 @@ final class JsonTypeEncoderTest extends TestCase
             '_type' => 'search',
         ];
 
-        $jsonencoder = new JsonTypeEncoder(true);
+        $jsonencoder = new JsonTypeEncoder();
 
         $json = $jsonencoder->encode($data);
 
-        $expectedJson = <<<'EOT'
-            {
-                "page": 1,
-                "perPage": 10,
-                "search": null,
-                "sort": "name",
-                "order": "asc",
-                "filter": "field==value",
-                "_links": {
-                    "self": {
-                        "href": "http://test.com/items/?page=1&perPage=10&sort=name&order=asc",
-                        "method": "GET"
-                    },
-                    "create": {
-                        "href": "http://test.com/items/",
-                        "method": "POST"
-                    }
-                },
-                "_type": "search"
-            }
-            EOT;
+        $expectedJson = '{"page":1,"perPage":10,"search":null,"sort":"name","order":"asc","filter":"field==value","_links":{"self":{"href":"http://test.com/items/?page=1&perPage=10&sort=name&order=asc","method":"GET"},"create":{"href":"http://test.com/items/","method":"POST"}},"_type":"search"}';
+
         self::assertEquals($expectedJson, $json);
     }
 }

@@ -216,23 +216,11 @@ final class JsonxTypeEncoderTest extends TestCase
 
     public function testArray(): void
     {
-        $encoder = new JsonxTypeEncoder(true);
+        $encoder = new JsonxTypeEncoder();
 
         $expectedJsonx = <<<'EOT'
             <?xml version="1.0" encoding="UTF-8"?>
-            <json:array xsi:schemaLocation="http://www.datapower.com/schemas/json jsonx.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:json="http://www.ibm.com/xmlns/prod/2009/jsonx">
-              <json:object>
-                <json:string name="key">value</json:string>
-              </json:object>
-              <json:array>
-                <json:string>value</json:string>
-              </json:array>
-              <json:boolean>false</json:boolean>
-              <json:string>text</json:string>
-              <json:number>1</json:number>
-              <json:number>1.1</json:number>
-              <json:null/>
-            </json:array>
+            <json:array xsi:schemaLocation="http://www.datapower.com/schemas/json jsonx.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:json="http://www.ibm.com/xmlns/prod/2009/jsonx"><json:object><json:string name="key">value</json:string></json:object><json:array><json:string>value</json:string></json:array><json:boolean>false</json:boolean><json:string>text</json:string><json:number>1</json:number><json:number>1.1</json:number><json:null/></json:array>
             EOT;
 
         $jsonx = $encoder->encode([
