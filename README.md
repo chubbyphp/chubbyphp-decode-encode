@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/chubbyphp/chubbyphp-decode-encode/workflows/CI/badge.svg?branch=master)](https://github.com/chubbyphp/chubbyphp-decode-encode/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/chubbyphp/chubbyphp-decode-encode/badge.svg?branch=master)](https://coveralls.io/github/chubbyphp/chubbyphp-decode-encode?branch=master)
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fchubbyphp%2Fchubbyphp-decode-encode%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/chubbyphp/chubbyphp-decode-encode/master)[![Latest Stable Version](https://poser.pugx.org/chubbyphp/chubbyphp-decode-encode/v/stable.png)](https://packagist.org/packages/chubbyphp/chubbyphp-decode-encode)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fchubbyphp%2Fchubbyphp-decode-encode%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/chubbyphp/chubbyphp-decode-encode/master)
 [![Latest Stable Version](https://poser.pugx.org/chubbyphp/chubbyphp-decode-encode/v/stable.png)](https://packagist.org/packages/chubbyphp/chubbyphp-decode-encode)
 [![Total Downloads](https://poser.pugx.org/chubbyphp/chubbyphp-decode-encode/downloads.png)](https://packagist.org/packages/chubbyphp/chubbyphp-decode-encode)
 [![Monthly Downloads](https://poser.pugx.org/chubbyphp/chubbyphp-decode-encode/d/monthly)](https://packagist.org/packages/chubbyphp/chubbyphp-decode-encode)
