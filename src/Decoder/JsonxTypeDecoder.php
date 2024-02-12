@@ -116,7 +116,7 @@ final class JsonxTypeDecoder implements TypeDecoderInterface
 
     private function decodeStringNode(\DOMNode $node): string
     {
-        return html_entity_decode($node->nodeValue, ENT_COMPAT | ENT_XML1, 'UTF-8');
+        return $node->nodeValue;
     }
 
     private function decodeNumberNode(\DOMNode $node): float|int

@@ -164,4 +164,90 @@ final class YamlTypeEncoderTest extends TestCase
 
         self::assertEquals($expectedYaml, $yaml);
     }
+
+    public function testNotInline(): void
+    {
+        $yamlencoder = new YamlTypeEncoder();
+
+        $yaml = $yamlencoder->encode(['key' => [
+            'key' => [
+                'key' => [
+                    'key' => [
+                        'key' => [
+                            'key' => [
+                                'key' => [
+                                    'key' => [
+                                        'key' => [
+                                            'key' => 'value',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        ]);
+
+        $expectedYaml =
+        <<<'EOT'
+            key:
+                key:
+                    key:
+                        key:
+                            key:
+                                key:
+                                    key:
+                                        key:
+                                            key:
+                                                key: value
+            EOT;
+
+        self::assertEquals($expectedYaml, $yaml);
+    }
+
+    public function testInline(): void
+    {
+        $yamlencoder = new YamlTypeEncoder();
+
+        $yaml = $yamlencoder->encode([
+            'key' => [
+                'key' => [
+                    'key' => [
+                        'key' => [
+                            'key' => [
+                                'key' => [
+                                    'key' => [
+                                        'key' => [
+                                            'key' => [
+                                                'key' => [
+                                                    'key' => 'value',
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $expectedYaml = <<<'EOT'
+            key:
+                key:
+                    key:
+                        key:
+                            key:
+                                key:
+                                    key:
+                                        key:
+                                            key:
+                                                key: { key: value }
+            EOT;
+
+        self::assertEquals($expectedYaml, $yaml);
+    }
 }

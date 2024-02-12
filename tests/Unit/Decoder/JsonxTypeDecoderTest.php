@@ -196,6 +196,22 @@ final class JsonxTypeDecoderTest extends TestCase
         self::assertSame('0041000000000', $data['phone']);
     }
 
+    public function testWithEntities(): void
+    {
+        $jsonx = <<<'EOD'
+            <?xml version="1.0" encoding="UTF-8"?>
+            <json:object xsi:schemaLocation="http://www.datapower.com/schemas/json jsonx.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:json="http://www.ibm.com/xmlns/prod/2009/jsonx">
+              <json:string name="name">"&lt;xml&gt;&lt;/xml&gt;"</json:string>
+            </json:object>
+            EOD;
+
+        $decoder = new JsonxTypeDecoder();
+
+        $data = $decoder->decode($jsonx);
+
+        self::assertSame('"<xml></xml>"', $data['name']);
+    }
+
     public function testInvalidTag(): void
     {
         $this->expectException(RuntimeException::class);

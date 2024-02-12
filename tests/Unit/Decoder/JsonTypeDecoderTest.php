@@ -198,6 +198,7 @@ final class JsonTypeDecoderTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Data is not parsable with content-type: "application/json", error: "Syntax error"');
+
         $decoderType = new JsonTypeDecoder();
         $decoderType->decode('====');
     }
@@ -206,7 +207,34 @@ final class JsonTypeDecoderTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Data is not parsable with content-type: "application/json", error: "Not an object"');
+
         $decoderType = new JsonTypeDecoder();
         $decoderType->decode('null');
+    }
+
+    public function testMaxNestedDecode(): void
+    {
+        $data = [];
+        for ($i = 0; $i < 510; ++$i) {
+            $data = ['data' => $data];
+        }
+
+        $decoderType = new JsonTypeDecoder();
+
+        self::assertSame('array', \gettype($decoderType->decode(json_encode($data, 0, 511))));
+    }
+
+    public function testTomatchNestedDecode(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Data is not parsable with content-type: "application/json", error: "Maximum stack depth exceeded"');
+
+        $data = [];
+        for ($i = 0; $i < 511; ++$i) {
+            $data = ['data' => $data];
+        }
+
+        $decoderType = new JsonTypeDecoder();
+        $decoderType->decode(json_encode($data, 0, 512));
     }
 }

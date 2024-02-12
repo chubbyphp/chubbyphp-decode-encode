@@ -213,4 +213,16 @@ final class XmlTypeEncoderTest extends TestCase
             EOT;
         self::assertEquals($expectedXml, $xml);
     }
+
+    public function testWitoutPrettyPrint(): void
+    {
+        $encoder = new XmlTypeEncoder();
+
+        $expectedXml = <<<'EOT'
+            <?xml version="1.0" encoding="UTF-8"?>
+            <json:object xsi:schemaLocation="http://www.datapower.com/schemas/json jsonx.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:json="http://www.ibm.com/xmlns/prod/2009/jsonx"><json:string name="key">value</json:string></json:object>
+            EOT;
+
+        self::assertSame($expectedXml, $encoder->encode(['key' => 'value']));
+    }
 }
