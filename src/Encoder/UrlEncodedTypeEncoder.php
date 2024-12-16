@@ -70,6 +70,6 @@ final class UrlEncodedTypeEncoder implements TypeEncoderInterface
             return (string) $value;
         }
 
-        throw new \InvalidArgumentException(sprintf('Unsupported data type: %s', \gettype($value)));
+        throw new \InvalidArgumentException(\sprintf('Unsupported data type: %s', \gettype($value)));
     }
 }
