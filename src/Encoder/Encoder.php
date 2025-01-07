@@ -11,14 +11,13 @@ final class Encoder implements EncoderInterface
     /**
      * @var array<string, TypeEncoderInterface>
      */
-    private array $encoderTypes;
+    private array $encoderTypes = [];
 
     /**
      * @param array<int, TypeEncoderInterface> $encoderTypes
      */
     public function __construct(array $encoderTypes)
     {
-        $this->encoderTypes = [];
         foreach ($encoderTypes as $encoderType) {
             $this->addTypeEncoder($encoderType);
         }

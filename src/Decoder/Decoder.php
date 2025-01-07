@@ -12,14 +12,13 @@ final class Decoder implements DecoderInterface
     /**
      * @var array<string, TypeDecoderInterface>
      */
-    private array $decoderTypes;
+    private array $decoderTypes = [];
 
     /**
      * @param array<int, TypeDecoderInterface> $decoderTypes
      */
     public function __construct(array $decoderTypes)
     {
-        $this->decoderTypes = [];
         foreach ($decoderTypes as $decoderType) {
             $this->addTypeDecoder($decoderType);
         }
