@@ -178,8 +178,6 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
             return self::DATATYPE_NUMBER;
         }
 
-        if (null === $value) {
-            return self::DATATYPE_NULL;
-        }
+        return self::DATATYPE_NULL;
     }
 }
