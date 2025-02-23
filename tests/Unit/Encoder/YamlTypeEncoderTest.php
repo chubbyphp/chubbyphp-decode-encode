@@ -190,8 +190,8 @@ final class YamlTypeEncoderTest extends TestCase
         ],
         ]);
 
-        $expectedYaml =
-        <<<'EOT'
+        $expectedYaml
+        = <<<'EOT'
             key:
                 key:
                     key:
