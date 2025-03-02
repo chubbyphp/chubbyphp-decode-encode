@@ -7,9 +7,8 @@ namespace Chubbyphp\Tests\DecodeEncode\Unit\Decoder;
 use Chubbyphp\DecodeEncode\Decoder\Decoder;
 use Chubbyphp\DecodeEncode\Decoder\TypeDecoderInterface;
 use Chubbyphp\DecodeEncode\LogicException;
-use Chubbyphp\Mock\Call;
-use Chubbyphp\Mock\MockByCallsTrait;
-use PHPUnit\Framework\MockObject\MockObject;
+use Chubbyphp\Mock\MockMethod\WithReturn;
+use Chubbyphp\Mock\MockObjectBuilder;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,13 +18,13 @@ use PHPUnit\Framework\TestCase;
  */
 final class DecoderTest extends TestCase
 {
-    use MockByCallsTrait;
-
     public function testGetContentTypes(): void
     {
-        /** @var MockObject|TypeDecoderInterface */
-        $typeDecoder = $this->getMockByCalls(TypeDecoderInterface::class, [
-            Call::create('getContentType')->with()->willReturn('application/json'),
+        $builder = new MockObjectBuilder();
+
+        /** @var TypeDecoderInterface $typeDecoder */
+        $typeDecoder = $builder->create(TypeDecoderInterface::class, [
+            new WithReturn('getContentType', [], 'application/json'),
         ]);
 
         $decoder = new Decoder([$typeDecoder]);
@@ -35,10 +34,12 @@ final class DecoderTest extends TestCase
 
     public function testDecode(): void
     {
-        /** @var MockObject|TypeDecoderInterface */
-        $typeDecoder = $this->getMockByCalls(TypeDecoderInterface::class, [
-            Call::create('getContentType')->with()->willReturn('application/json'),
-            Call::create('decode')->with('{"key": "value"}')->willReturn(['key' => 'value']),
+        $builder = new MockObjectBuilder();
+
+        /** @var TypeDecoderInterface $typeDecoder */
+        $typeDecoder = $builder->create(TypeDecoderInterface::class, [
+            new WithReturn('getContentType', [], 'application/json'),
+            new WithReturn('decode', ['{"key": "value"}'], ['key' => 'value']),
         ]);
 
         $decoder = new Decoder([$typeDecoder]);
@@ -51,9 +52,11 @@ final class DecoderTest extends TestCase
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('There is no decoder/encoder for content-type: "application/xml"');
 
-        /** @var MockObject|TypeDecoderInterface */
-        $typeDecoder = $this->getMockByCalls(TypeDecoderInterface::class, [
-            Call::create('getContentType')->with()->willReturn('application/json'),
+        $builder = new MockObjectBuilder();
+
+        /** @var TypeDecoderInterface $typeDecoder */
+        $typeDecoder = $builder->create(TypeDecoderInterface::class, [
+            new WithReturn('getContentType', [], 'application/json'),
         ]);
 
         $decoder = new Decoder([$typeDecoder]);

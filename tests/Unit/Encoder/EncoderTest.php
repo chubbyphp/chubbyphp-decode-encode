@@ -7,9 +7,8 @@ namespace Chubbyphp\Tests\DecodeEncode\Unit\Encoder;
 use Chubbyphp\DecodeEncode\Encoder\Encoder;
 use Chubbyphp\DecodeEncode\Encoder\TypeEncoderInterface;
 use Chubbyphp\DecodeEncode\LogicException;
-use Chubbyphp\Mock\Call;
-use Chubbyphp\Mock\MockByCallsTrait;
-use PHPUnit\Framework\MockObject\MockObject;
+use Chubbyphp\Mock\MockMethod\WithReturn;
+use Chubbyphp\Mock\MockObjectBuilder;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,13 +18,13 @@ use PHPUnit\Framework\TestCase;
  */
 final class EncoderTest extends TestCase
 {
-    use MockByCallsTrait;
-
     public function testGetContentTypes(): void
     {
-        /** @var MockObject|TypeEncoderInterface $typeEncoder */
-        $typeEncoder = $this->getMockByCalls(TypeEncoderInterface::class, [
-            Call::create('getContentType')->with()->willReturn('application/json'),
+        $builder = new MockObjectBuilder();
+
+        /** @var TypeEncoderInterface $typeEncoder */
+        $typeEncoder = $builder->create(TypeEncoderInterface::class, [
+            new WithReturn('getContentType', [], 'application/json'),
         ]);
 
         $encoder = new Encoder([$typeEncoder]);
@@ -35,10 +34,12 @@ final class EncoderTest extends TestCase
 
     public function testEncode(): void
     {
-        /** @var MockObject|TypeEncoderInterface $typeEncoder */
-        $typeEncoder = $this->getMockByCalls(TypeEncoderInterface::class, [
-            Call::create('getContentType')->with()->willReturn('application/json'),
-            Call::create('encode')->with(['key' => 'value'])->willReturn('{"key":"value"}'),
+        $builder = new MockObjectBuilder();
+
+        /** @var TypeEncoderInterface $typeEncoder */
+        $typeEncoder = $builder->create(TypeEncoderInterface::class, [
+            new WithReturn('getContentType', [], 'application/json'),
+            new WithReturn('encode', [['key' => 'value']], '{"key":"value"}'),
         ]);
 
         $encoder = new Encoder([$typeEncoder]);
@@ -51,9 +52,11 @@ final class EncoderTest extends TestCase
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('There is no decoder/encoder for content-type: "application/xml"');
 
-        /** @var MockObject|TypeEncoderInterface $typeEncoder */
-        $typeEncoder = $this->getMockByCalls(TypeEncoderInterface::class, [
-            Call::create('getContentType')->with()->willReturn('application/json'),
+        $builder = new MockObjectBuilder();
+
+        /** @var TypeEncoderInterface $typeEncoder */
+        $typeEncoder = $builder->create(TypeEncoderInterface::class, [
+            new WithReturn('getContentType', [], 'application/json'),
         ]);
 
         $encoder = new Encoder([$typeEncoder]);
