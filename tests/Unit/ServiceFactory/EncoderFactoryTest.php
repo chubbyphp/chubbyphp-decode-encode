@@ -7,8 +7,8 @@ namespace Chubbyphp\Tests\DecodeEncode\Unit\ServiceFactory;
 use Chubbyphp\DecodeEncode\Encoder\EncoderInterface;
 use Chubbyphp\DecodeEncode\Encoder\TypeEncoderInterface;
 use Chubbyphp\DecodeEncode\ServiceFactory\EncoderFactory;
-use Chubbyphp\Mock\Call;
-use Chubbyphp\Mock\MockByCallsTrait;
+use Chubbyphp\Mock\MockMethod\WithReturn;
+use Chubbyphp\Mock\MockObjectBuilder;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
@@ -19,13 +19,13 @@ use Psr\Container\ContainerInterface;
  */
 final class EncoderFactoryTest extends TestCase
 {
-    use MockByCallsTrait;
-
     public function testInvoke(): void
     {
+        $builder = new MockObjectBuilder();
+
         /** @var ContainerInterface $container */
-        $container = $this->getMockByCalls(ContainerInterface::class, [
-            Call::create('get')->with(TypeEncoderInterface::class.'[]')->willReturn([]),
+        $container = $builder->create(ContainerInterface::class, [
+            new WithReturn('get', [TypeEncoderInterface::class.'[]'], []),
         ]);
 
         $factory = new EncoderFactory();
@@ -37,9 +37,11 @@ final class EncoderFactoryTest extends TestCase
 
     public function testCallStatic(): void
     {
+        $builder = new MockObjectBuilder();
+
         /** @var ContainerInterface $container */
-        $container = $this->getMockByCalls(ContainerInterface::class, [
-            Call::create('get')->with(TypeEncoderInterface::class.'[]default')->willReturn([]),
+        $container = $builder->create(ContainerInterface::class, [
+            new WithReturn('get', [TypeEncoderInterface::class.'[]default'], []),
         ]);
 
         $factory = [EncoderFactory::class, 'default'];
