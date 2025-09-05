@@ -156,7 +156,7 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
         return $node;
     }
 
-    private function getType(null|array|bool|float|int|string $value): string
+    private function getType(array|bool|float|int|string|null $value): string
     {
         if (\is_array($value)) {
             if ($value !== array_values($value)) {
