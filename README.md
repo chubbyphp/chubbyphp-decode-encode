@@ -25,7 +25,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 
 ## Requirements
 
- * php: ^8.2
+ * php: ^8.3
  * symfony/yaml: ^5.4.45|^6.4.18|^7.2
 
 ## Suggest
@@ -38,7 +38,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [Composer](http://getcomposer.org) as [chubbyphp/chubbyphp-decode-encode][1].
 
 ```sh
-composer require chubbyphp/chubbyphp-decode-encode "^1.2"
+composer require chubbyphp/chubbyphp-decode-encode "^1.3"
 ```
 
 ## Usage

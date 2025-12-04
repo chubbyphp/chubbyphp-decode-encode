@@ -9,12 +9,12 @@ namespace Chubbyphp\DecodeEncode\Encoder;
  */
 final class JsonxTypeEncoder implements TypeEncoderInterface
 {
-    public const DATATYPE_OBJECT = 'object';
-    public const DATATYPE_ARRAY = 'array';
-    public const DATATYPE_BOOLEAN = 'boolean';
-    public const DATATYPE_STRING = 'string';
-    public const DATATYPE_NUMBER = 'number';
-    public const DATATYPE_NULL = 'null';
+    public const string DATATYPE_OBJECT = 'object';
+    public const string DATATYPE_ARRAY = 'array';
+    public const string DATATYPE_BOOLEAN = 'boolean';
+    public const string DATATYPE_STRING = 'string';
+    public const string DATATYPE_NUMBER = 'number';
+    public const string DATATYPE_NULL = 'null';
 
     public function __construct(private bool $prettyPrint = false) {}
 

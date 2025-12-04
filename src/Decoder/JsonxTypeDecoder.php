@@ -11,12 +11,12 @@ use Chubbyphp\DecodeEncode\RuntimeException;
  */
 final class JsonxTypeDecoder implements TypeDecoderInterface
 {
-    private const DATATYPE_OBJECT = 'object';
-    private const DATATYPE_ARRAY = 'array';
-    private const DATATYPE_BOOLEAN = 'boolean';
-    private const DATATYPE_STRING = 'string';
-    private const DATATYPE_NUMBER = 'number';
-    private const DATATYPE_NULL = 'null';
+    private const string DATATYPE_OBJECT = 'object';
+    private const string DATATYPE_ARRAY = 'array';
+    private const string DATATYPE_BOOLEAN = 'boolean';
+    private const string DATATYPE_STRING = 'string';
+    private const string DATATYPE_NUMBER = 'number';
+    private const string DATATYPE_NULL = 'null';
 
     public function getContentType(): string
     {
@@ -39,10 +39,7 @@ final class JsonxTypeDecoder implements TypeDecoderInterface
         return $this->decodeNode($document->documentElement);
     }
 
-    /**
-     * @return null|array|bool|float|int|string
-     */
-    private function decodeNode(\DOMNode $node)
+    private function decodeNode(\DOMNode $node): array|bool|float|int|string|null
     {
         $nodeName = $node->nodeName;
 
@@ -69,7 +66,7 @@ final class JsonxTypeDecoder implements TypeDecoderInterface
         }
 
         if (self::DATATYPE_NULL === $nodeType) {
-            return;
+            return null;
         }
 
         throw RuntimeException::createNotParsable($this->getContentType());
