@@ -23,7 +23,7 @@
         "ext-dom": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "symfony/yaml": "^5.4.45|^6.4.26|^7.4"
+        "symfony/yaml": "^6.4.30|^7.4.1|^8.0.1"
     },
     "require-dev": {
         "chubbyphp/chubbyphp-container": "^2.2",
