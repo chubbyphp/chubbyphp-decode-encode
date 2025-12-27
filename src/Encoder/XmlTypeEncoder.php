@@ -6,7 +6,7 @@ namespace Chubbyphp\DecodeEncode\Encoder;
 
 final class XmlTypeEncoder implements TypeEncoderInterface
 {
-    private JsonxTypeEncoder $jsonxTypeEncoder;
+    private readonly JsonxTypeEncoder $jsonxTypeEncoder;
 
     public function __construct(bool $prettyPrint = false)
     {
