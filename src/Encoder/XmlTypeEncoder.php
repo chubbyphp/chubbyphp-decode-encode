@@ -19,7 +19,7 @@ final class XmlTypeEncoder implements TypeEncoderInterface
     }
 
     /**
-     * @param array<string, null|array|bool|float|int|string> $data
+     * @param array<string, mixed> $data
      */
     public function encode(array $data): string
     {

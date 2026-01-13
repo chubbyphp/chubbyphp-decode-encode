@@ -14,8 +14,9 @@ final class DecoderFactory extends AbstractFactory
 {
     public function __invoke(ContainerInterface $container): DecoderInterface
     {
-        return new Decoder(
-            $container->get(TypeDecoderInterface::class.'[]'.$this->name)
-        );
+        /** @var array<int, TypeDecoderInterface> $decoderTypes */
+        $decoderTypes = $container->get(TypeDecoderInterface::class.'[]'.$this->name);
+
+        return new Decoder($decoderTypes);
     }
 }

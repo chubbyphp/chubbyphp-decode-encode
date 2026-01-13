@@ -12,7 +12,7 @@ final class UrlEncodedTypeEncoder implements TypeEncoderInterface
     }
 
     /**
-     * @param array<string, null|array|bool|float|int|string> $data
+     * @param array<string, mixed> $data
      */
     public function encode(array $data): string
     {
@@ -20,7 +20,7 @@ final class UrlEncodedTypeEncoder implements TypeEncoderInterface
     }
 
     /**
-     * @param array<int|string, null|array|bool|float|int|string> $data
+     * @param array<int|string, mixed> $data
      */
     private function buildQuery(array $data, string $path = ''): string
     {
@@ -37,6 +37,7 @@ final class UrlEncodedTypeEncoder implements TypeEncoderInterface
 
                 $query .= '' !== $queryPart ? $queryPart.'&' : '';
             } else {
+                /** @var \stdClass|string $value */
                 $query .= $subPath.'='.urlencode($this->getValueAsString($value)).'&';
             }
         }

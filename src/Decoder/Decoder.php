@@ -33,7 +33,7 @@ final class Decoder implements DecoderInterface
     }
 
     /**
-     * @return array<string, null|array|bool|float|int|string>
+     * @return array<string, mixed>
      *
      * @throws LogicException
      * @throws RuntimeException

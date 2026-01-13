@@ -14,7 +14,7 @@ interface EncoderInterface
     public function getContentTypes(): array;
 
     /**
-     * @param array<string, null|array|bool|float|int|string> $data
+     * @param array<string, mixed> $data
      *
      * @throws LogicException
      */

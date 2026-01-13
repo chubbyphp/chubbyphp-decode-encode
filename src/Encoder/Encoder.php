@@ -32,7 +32,7 @@ final class Encoder implements EncoderInterface
     }
 
     /**
-     * @param array<string, null|array|bool|float|int|string> $data
+     * @param array<string, mixed> $data
      *
      * @throws LogicException
      */

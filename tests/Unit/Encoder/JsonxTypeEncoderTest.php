@@ -238,7 +238,8 @@ final class JsonxTypeEncoderTest extends TestCase
 
     public function testWithInvalidDataType(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unsupported data type: object');
 
         $encoder = new JsonxTypeEncoder(true);
         $encoder->encode(['key' => new \DateTimeImmutable()]);

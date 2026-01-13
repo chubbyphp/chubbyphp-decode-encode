@@ -212,6 +212,22 @@ final class JsonxTypeDecoderTest extends TestCase
         self::assertSame('"<xml></xml>"', $data['name']);
     }
 
+    public function testEmpty(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Data is not parsable with content-type: "application/jsonx+xml"');
+        $decoderType = new JsonxTypeDecoder();
+        $decoderType->decode('<?xml version="1.0" encoding="UTF-8"?>');
+    }
+
+    public function testCommentOnly(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Data is not parsable with content-type: "application/jsonx+xml"');
+        $decoderType = new JsonxTypeDecoder();
+        $decoderType->decode('<?xml version="1.0" encoding="UTF-8"?><!-- comment -->');
+    }
+
     public function testInvalidTag(): void
     {
         $this->expectException(RuntimeException::class);
@@ -226,6 +242,14 @@ final class JsonxTypeDecoderTest extends TestCase
         $this->expectExceptionMessage('Data is not parsable with content-type: "application/jsonx+xml"');
         $decoderType = new JsonxTypeDecoder();
         $decoderType->decode('<?xml version="1.0" encoding="UTF-8"?><json:unknown></json:unknown>');
+    }
+
+    public function testWithoutObject(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Data is not parsable with content-type: "application/jsonx+xml"');
+        $decoderType = new JsonxTypeDecoder();
+        $decoderType->decode('<?xml version="1.0" encoding="UTF-8"?><json:string name="id">id1</json:string>');
     }
 
     public function testInvalidDecode(): void

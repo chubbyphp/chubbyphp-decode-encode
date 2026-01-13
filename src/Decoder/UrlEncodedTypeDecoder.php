@@ -14,12 +14,13 @@ final class UrlEncodedTypeDecoder implements TypeDecoderInterface
     }
 
     /**
-     * @return array<string, null|array|bool|float|int|string>
+     * @return array<string, mixed>
      *
      * @throws RuntimeException
      */
     public function decode(string $data): array
     {
+        /** @var array<string, mixed> $rawData */
         $rawData = [];
         parse_str($data, $rawData);
 
@@ -27,25 +28,30 @@ final class UrlEncodedTypeDecoder implements TypeDecoderInterface
             throw RuntimeException::createNotParsable($this->getContentType());
         }
 
+        /** @var array<string, mixed> */
         return $this->fixValues($rawData);
     }
 
     /**
-     * @param array<int|string, null|array|bool|float|int|string> $rawData
+     * @param array<int|string, mixed> $rawData
      *
-     * @return array<int|string, null|array|bool|float|int|string>
+     * @return array<int|string, mixed>
      */
     private function fixValues(array $rawData): array
     {
         $data = [];
         foreach ($rawData as $key => $value) {
-            $data[$key] = \is_array($value) ? $this->fixValues($value) : $this->fixValue($value);
+            if (\is_array($value)) {
+                $data[$key] = $this->fixValues($value);
+            } elseif (\is_string($value)) {
+                $data[$key] = $this->fixValue($value);
+            }
         }
 
         return $data;
     }
 
-    private function fixValue(string $value): bool|float|int|string|null
+    private function fixValue(string $value): bool|float|int|string
     {
         if ('true' === $value) {
             return true;

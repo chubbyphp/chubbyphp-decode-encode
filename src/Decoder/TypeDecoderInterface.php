@@ -11,7 +11,7 @@ interface TypeDecoderInterface
     public function getContentType(): string;
 
     /**
-     * @return array<string, null|array|bool|float|int|string>
+     * @return array<string, mixed>
      *
      * @throws RuntimeException
      */

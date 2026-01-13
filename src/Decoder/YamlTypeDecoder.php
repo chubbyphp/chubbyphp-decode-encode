@@ -16,7 +16,7 @@ final class YamlTypeDecoder implements TypeDecoderInterface
     }
 
     /**
-     * @return array<string, null|array|bool|float|int|string>
+     * @return array<string, mixed>
      *
      * @throws RuntimeException
      */
@@ -31,6 +31,8 @@ final class YamlTypeDecoder implements TypeDecoderInterface
         if (!\is_array($decoded)) {
             throw RuntimeException::createNotParsable($this->getContentType(), 'Not an object');
         }
+
+        /** @var array<string, mixed> $decoded */
 
         return $decoded;
     }

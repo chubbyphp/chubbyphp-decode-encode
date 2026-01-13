@@ -24,7 +24,7 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
     }
 
     /**
-     * @param array<string, null|array|bool|float|int|string> $data
+     * @param array<string, mixed> $data
      */
     public function encode(array $data): string
     {
@@ -32,8 +32,10 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
         $document->formatOutput = $this->prettyPrint;
 
         if (self::DATATYPE_OBJECT === $this->getType($data)) {
+            /** @var array<string, mixed> $data */
             $rootNode = $this->createObjectNode($document, $data);
         } else {
+            /** @var array<int, mixed> $data */
             $rootNode = $this->createArrayNode($document, $data);
         }
 
@@ -43,11 +45,11 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
 
         $document->appendChild($rootNode);
 
-        return trim($document->saveXML($document));
+        return trim((string) $document->saveXML($document));
     }
 
     /**
-     * @param array<string, null|array|bool|float|int|string> $value
+     * @param array<string, mixed> $value
      */
     private function createObjectNode(\DOMDocument $document, array $value, ?string $name = null): \DOMElement
     {
@@ -58,29 +60,46 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
         }
 
         foreach ($value as $subName => $subValue) {
-            $subValueType = $this->getType($subValue);
-            if (self::DATATYPE_OBJECT === $subValueType) {
-                $subNode = $this->createObjectNode($document, $subValue, (string) $subName);
-            } elseif (self::DATATYPE_ARRAY === $subValueType) {
-                $subNode = $this->createArrayNode($document, $subValue, (string) $subName);
-            } elseif (self::DATATYPE_BOOLEAN === $subValueType) {
-                $subNode = $this->createBooleanNode($document, $subValue, (string) $subName);
-            } elseif (self::DATATYPE_STRING === $subValueType) {
-                $subNode = $this->createStringNode($document, $subValue, (string) $subName);
-            } elseif (self::DATATYPE_NUMBER === $subValueType) {
-                $subNode = $this->createNumberNode($document, $subValue, (string) $subName);
-            } else {
-                $subNode = $this->createNullNode($document, (string) $subName);
-            }
-
-            $node->appendChild($subNode);
+            $node->appendChild($this->createObjectPropertyNode($document, $subName, $subValue));
         }
 
         return $node;
     }
 
+    private function createObjectPropertyNode(\DOMDocument $document, int|string $subName, mixed $subValue): \DOMElement
+    {
+        $subValueType = $this->getType($subValue);
+
+        if (self::DATATYPE_OBJECT === $subValueType) {
+            /** @var array<string, mixed> $subValue */
+            return $this->createObjectNode($document, $subValue, (string) $subName);
+        }
+
+        if (self::DATATYPE_ARRAY === $subValueType) {
+            /** @var array<int, mixed> $subValue */
+            return $this->createArrayNode($document, $subValue, (string) $subName);
+        }
+
+        if (self::DATATYPE_BOOLEAN === $subValueType) {
+            /** @var bool $subValue */
+            return $this->createBooleanNode($document, $subValue, (string) $subName);
+        }
+
+        if (self::DATATYPE_STRING === $subValueType) {
+            /** @var string $subValue */
+            return $this->createStringNode($document, $subValue, (string) $subName);
+        }
+
+        if (self::DATATYPE_NUMBER === $subValueType) {
+            /** @var float|int $subValue */
+            return $this->createNumberNode($document, $subValue, (string) $subName);
+        }
+
+        return $this->createNullNode($document, (string) $subName);
+    }
+
     /**
-     * @param array<int, null|array|bool|float|int|string> $value
+     * @param array<int, mixed> $value
      */
     private function createArrayNode(\DOMDocument $document, array $value, ?string $name = null): \DOMElement
     {
@@ -91,25 +110,42 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
         }
 
         foreach ($value as $subValue) {
-            $subValueType = $this->getType($subValue);
-            if (self::DATATYPE_OBJECT === $subValueType) {
-                $subNode = $this->createObjectNode($document, $subValue);
-            } elseif (self::DATATYPE_ARRAY === $subValueType) {
-                $subNode = $this->createArrayNode($document, $subValue);
-            } elseif (self::DATATYPE_BOOLEAN === $subValueType) {
-                $subNode = $this->createBooleanNode($document, $subValue);
-            } elseif (self::DATATYPE_STRING === $subValueType) {
-                $subNode = $this->createStringNode($document, $subValue);
-            } elseif (self::DATATYPE_NUMBER === $subValueType) {
-                $subNode = $this->createNumberNode($document, $subValue);
-            } else {
-                $subNode = $this->createNullNode($document);
-            }
-
-            $node->appendChild($subNode);
+            $node->appendChild($this->createArrayValueNode($document, $subValue));
         }
 
         return $node;
+    }
+
+    private function createArrayValueNode(\DOMDocument $document, mixed $subValue): \DOMElement
+    {
+        $subValueType = $this->getType($subValue);
+
+        if (self::DATATYPE_OBJECT === $subValueType) {
+            /** @var array<string, mixed> $subValue */
+            return $this->createObjectNode($document, $subValue);
+        }
+
+        if (self::DATATYPE_ARRAY === $subValueType) {
+            /** @var array<int, mixed> $subValue */
+            return $this->createArrayNode($document, $subValue);
+        }
+
+        if (self::DATATYPE_BOOLEAN === $subValueType) {
+            /** @var bool $subValue */
+            return $this->createBooleanNode($document, $subValue);
+        }
+
+        if (self::DATATYPE_STRING === $subValueType) {
+            /** @var string $subValue */
+            return $this->createStringNode($document, $subValue);
+        }
+
+        if (self::DATATYPE_NUMBER === $subValueType) {
+            /** @var float|int $subValue */
+            return $this->createNumberNode($document, $subValue);
+        }
+
+        return $this->createNullNode($document);
     }
 
     private function createBooleanNode(\DOMDocument $document, bool $value, ?string $name = null): \DOMElement
@@ -156,7 +192,7 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
         return $node;
     }
 
-    private function getType(array|bool|float|int|string|null $value): string
+    private function getType(mixed $value): string
     {
         if (\is_array($value)) {
             if ($value !== array_values($value)) {
@@ -178,6 +214,10 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
             return self::DATATYPE_NUMBER;
         }
 
-        return self::DATATYPE_NULL;
+        if (null === $value) {
+            return self::DATATYPE_NULL;
+        }
+
+        throw new \InvalidArgumentException(\sprintf('Unsupported data type: %s', \gettype($value)));
     }
 }

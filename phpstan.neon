@@ -1,17 +1,1 @@
 parameters:
-    ignoreErrors:
-        -
-            message: '/has no value type specified in iterable type array/'
-            path: %currentWorkingDirectory%/src/Decoder/*.php
-        -
-            message: '//'
-            path: %currentWorkingDirectory%/src/Decoder/JsonxTypeDecoder.php
-        -
-            message: '//'
-            path: %currentWorkingDirectory%/src/Decoder/UrlEncodedTypeDecoder.php
-        -
-            message: '/with no value type specified in iterable type array/'
-            path: %currentWorkingDirectory%/src/Encoder/*.php
-        -
-            message: '//'
-            path: %currentWorkingDirectory%/src/Encoder/JsonxTypeEncoder.php

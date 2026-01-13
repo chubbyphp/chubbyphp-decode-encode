@@ -24,7 +24,7 @@ final class JsonxTypeDecoder implements TypeDecoderInterface
     }
 
     /**
-     * @return array<string, null|array|bool|float|int|string>
+     * @return array<string, mixed>
      *
      * @throws RuntimeException
      */
@@ -32,14 +32,29 @@ final class JsonxTypeDecoder implements TypeDecoderInterface
     {
         $document = new \DOMDocument();
 
-        if (!@$document->loadXML($data)) {
+        @$document->loadXML($data);
+
+        $documentElement = $document->documentElement;
+
+        if (null === $documentElement) {
             throw RuntimeException::createNotParsable($this->getContentType());
         }
 
-        return $this->decodeNode($document->documentElement);
+        $result = $this->decodeNode($documentElement);
+
+        if (!\is_array($result)) {
+            throw RuntimeException::createNotParsable($this->getContentType());
+        }
+
+        /** @var array<string, mixed> $result */
+
+        return $result;
     }
 
-    private function decodeNode(\DOMNode $node): array|bool|float|int|string|null
+    /**
+     * @return null|array<mixed>|bool|float|int|string
+     */
+    private function decodeNode(\DOMElement $node): array|bool|float|int|string|null
     {
         $nodeName = $node->nodeName;
 
@@ -73,13 +88,13 @@ final class JsonxTypeDecoder implements TypeDecoderInterface
     }
 
     /**
-     * @return array<string, null|array|bool|float|int|string>
+     * @return array<string, mixed>
      */
-    private function decodeObjectNode(\DOMNode $node): array
+    private function decodeObjectNode(\DOMElement $node): array
     {
         $data = [];
         foreach ($node->childNodes as $childNode) {
-            if ($childNode instanceof \DOMText) {
+            if (!$childNode instanceof \DOMElement) {
                 continue;
             }
 
@@ -90,13 +105,13 @@ final class JsonxTypeDecoder implements TypeDecoderInterface
     }
 
     /**
-     * @return array<int, null|array|bool|float|int|string>
+     * @return array<int, mixed>
      */
-    private function decodeArrayNode(\DOMNode $node): array
+    private function decodeArrayNode(\DOMElement $node): array
     {
         $data = [];
         foreach ($node->childNodes as $childNode) {
-            if ($childNode instanceof \DOMText) {
+            if (!$childNode instanceof \DOMElement) {
                 continue;
             }
 
@@ -106,19 +121,19 @@ final class JsonxTypeDecoder implements TypeDecoderInterface
         return $data;
     }
 
-    private function decodeBooleanNode(\DOMNode $node): bool
+    private function decodeBooleanNode(\DOMElement $node): bool
     {
         return 'true' === $node->nodeValue;
     }
 
-    private function decodeStringNode(\DOMNode $node): string
+    private function decodeStringNode(\DOMElement $node): string
     {
-        return $node->nodeValue;
+        return $node->nodeValue ?? '';
     }
 
-    private function decodeNumberNode(\DOMNode $node): float|int
+    private function decodeNumberNode(\DOMElement $node): float|int
     {
-        $value = $node->nodeValue;
+        $value = $node->nodeValue ?? '0';
 
         if ($value === (string) (int) $value) {
             return (int) $value;
