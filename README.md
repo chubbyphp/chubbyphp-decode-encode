@@ -38,7 +38,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [Composer](http://getcomposer.org) as [chubbyphp/chubbyphp-decode-encode][1].
 
 ```sh
-composer require chubbyphp/chubbyphp-decode-encode "^1.3"
+composer require chubbyphp/chubbyphp-decode-encode "^1.3.1"
 ```
 
 ## Usage
