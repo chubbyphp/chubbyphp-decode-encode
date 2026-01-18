@@ -38,7 +38,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [Composer](http://getcomposer.org) as [chubbyphp/chubbyphp-decode-encode][1].
 
 ```sh
-composer require chubbyphp/chubbyphp-decode-encode "^1.3.1"
+composer require chubbyphp/chubbyphp-decode-encode "^1.4"
 ```
 
 ## Usage
@@ -139,6 +139,8 @@ echo $encoder->encode(
 
  * [DecoderFactory][20]
  * [EncoderFactory][21]
+ * [TypeDecodersFactory][22]
+ * [TypeEncodersFactory][23]
 
 ## Copyright
 
@@ -161,3 +163,5 @@ echo $encoder->encode(
 
 [20]: doc/ServiceFactory/DecoderFactory.md
 [21]: doc/ServiceFactory/EncoderFactory.md
+[22]: doc/ServiceFactory/TypeDecodersFactory.md
+[23]: doc/ServiceFactory/TypeEncodersFactory.md
