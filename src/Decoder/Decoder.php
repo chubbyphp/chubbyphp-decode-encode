@@ -15,7 +15,7 @@ final class Decoder implements DecoderInterface
     private array $decoderTypes = [];
 
     /**
-     * @param array<int, TypeDecoderInterface> $decoderTypes
+     * @param list<TypeDecoderInterface> $decoderTypes
      */
     public function __construct(array $decoderTypes)
     {
@@ -25,7 +25,7 @@ final class Decoder implements DecoderInterface
     }
 
     /**
-     * @return array<int, string>
+     * @return list<string>
      */
     public function getContentTypes(): array
     {

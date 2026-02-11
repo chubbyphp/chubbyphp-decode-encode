@@ -14,7 +14,7 @@ use Psr\Container\ContainerInterface;
 final class TypeEncodersFactory
 {
     /**
-     * @return array<int, TypeEncoderInterface>
+     * @return list<TypeEncoderInterface>
      */
     public function __invoke(ContainerInterface $container): array
     {

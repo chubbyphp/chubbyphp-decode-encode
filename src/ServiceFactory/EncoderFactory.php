@@ -14,7 +14,7 @@ final class EncoderFactory extends AbstractFactory
 {
     public function __invoke(ContainerInterface $container): EncoderInterface
     {
-        /** @var array<int, TypeEncoderInterface> $encoderTypes */
+        /** @var list<TypeEncoderInterface> $encoderTypes */
         $encoderTypes = $container->get(TypeEncoderInterface::class.'[]'.$this->name);
 
         return new Encoder($encoderTypes);

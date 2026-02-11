@@ -105,7 +105,7 @@ final class JsonxTypeDecoder implements TypeDecoderInterface
     }
 
     /**
-     * @return array<int, mixed>
+     * @return list<mixed>
      */
     private function decodeArrayNode(\DOMElement $node): array
     {

@@ -14,7 +14,7 @@ final class Encoder implements EncoderInterface
     private array $encoderTypes = [];
 
     /**
-     * @param array<int, TypeEncoderInterface> $encoderTypes
+     * @param list<TypeEncoderInterface> $encoderTypes
      */
     public function __construct(array $encoderTypes)
     {
@@ -24,7 +24,7 @@ final class Encoder implements EncoderInterface
     }
 
     /**
-     * @return array<int, string>
+     * @return list<string>
      */
     public function getContentTypes(): array
     {

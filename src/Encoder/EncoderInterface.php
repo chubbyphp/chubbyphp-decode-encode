@@ -9,7 +9,7 @@ use Chubbyphp\DecodeEncode\LogicException;
 interface EncoderInterface
 {
     /**
-     * @return array<int, string>
+     * @return list<string>
      */
     public function getContentTypes(): array;
 

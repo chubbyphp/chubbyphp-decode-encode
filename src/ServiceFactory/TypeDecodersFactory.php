@@ -13,7 +13,7 @@ use Chubbyphp\DecodeEncode\Decoder\YamlTypeDecoder;
 final class TypeDecodersFactory
 {
     /**
-     * @return array<int, TypeDecoderInterface>
+     * @return list<TypeDecoderInterface>
      */
     public function __invoke(): array
     {

@@ -10,7 +10,7 @@ use Chubbyphp\DecodeEncode\RuntimeException;
 interface DecoderInterface
 {
     /**
-     * @return array<int, string>
+     * @return list<string>
      */
     public function getContentTypes(): array;
 

@@ -35,7 +35,7 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
             /** @var array<string, mixed> $data */
             $rootNode = $this->createObjectNode($document, $data);
         } else {
-            /** @var array<int, mixed> $data */
+            /** @var list<mixed> $data */
             $rootNode = $this->createArrayNode($document, $data);
         }
 
@@ -76,7 +76,7 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
         }
 
         if (self::DATATYPE_ARRAY === $subValueType) {
-            /** @var array<int, mixed> $subValue */
+            /** @var list<mixed> $subValue */
             return $this->createArrayNode($document, $subValue, (string) $subName);
         }
 
@@ -99,7 +99,7 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
     }
 
     /**
-     * @param array<int, mixed> $value
+     * @param list<mixed> $value
      */
     private function createArrayNode(\DOMDocument $document, array $value, ?string $name = null): \DOMElement
     {
@@ -126,7 +126,7 @@ final class JsonxTypeEncoder implements TypeEncoderInterface
         }
 
         if (self::DATATYPE_ARRAY === $subValueType) {
-            /** @var array<int, mixed> $subValue */
+            /** @var list<mixed> $subValue */
             return $this->createArrayNode($document, $subValue);
         }
 
