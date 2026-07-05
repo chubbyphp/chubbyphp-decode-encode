@@ -26,7 +26,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 ## Requirements
 
  * php: ^8.3
- * symfony/yaml: ^6.4.30|^7.4.1|^8.0.1
+ * symfony/yaml: ^6.4.42|^7.4.14|^8.1.1
 
 ## Suggest
 

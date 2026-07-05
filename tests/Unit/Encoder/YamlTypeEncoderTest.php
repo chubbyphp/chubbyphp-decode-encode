@@ -27,7 +27,8 @@ final class YamlTypeEncoderTest extends TestCase
     {
         $yamlencoder = new YamlTypeEncoder();
 
-        $yaml = $yamlencoder->encode($data);
+        // symfony/yaml < 8.1 dumps empty maps as '{  }', newer versions as '{}'
+        $yaml = str_replace('{  }', '{}', $yamlencoder->encode($data));
 
         $expectedYaml = <<<'EOT'
             page: 1
@@ -49,19 +50,19 @@ final class YamlTypeEncoderTest extends TestCase
                         read:
                             href: 'http://test.com/items/id1'
                             templated: false
-                            rels: {  }
+                            rels: {}
                             attributes:
                                 method: GET
                         update:
                             href: 'http://test.com/items/id1'
                             templated: false
-                            rels: {  }
+                            rels: {}
                             attributes:
                                 method: PUT
                         delete:
                             href: 'http://test.com/items/id1'
                             templated: false
-                            rels: {  }
+                            rels: {}
                             attributes:
                                 method: DELETE
                 items:
@@ -78,19 +79,19 @@ final class YamlTypeEncoderTest extends TestCase
                             read:
                                 href: 'http://test.com/items/id1'
                                 templated: false
-                                rels: {  }
+                                rels: {}
                                 attributes:
                                     method: GET
                             update:
                                 href: 'http://test.com/items/id1'
                                 templated: false
-                                rels: {  }
+                                rels: {}
                                 attributes:
                                     method: PUT
                             delete:
                                 href: 'http://test.com/items/id1'
                                 templated: false
-                                rels: {  }
+                                rels: {}
                                 attributes:
                                     method: DELETE
                     -
@@ -107,19 +108,19 @@ final class YamlTypeEncoderTest extends TestCase
                             read:
                                 href: 'http://test.com/items/id2'
                                 templated: false
-                                rels: {  }
+                                rels: {}
                                 attributes:
                                     method: GET
                             update:
                                 href: 'http://test.com/items/id2'
                                 templated: false
-                                rels: {  }
+                                rels: {}
                                 attributes:
                                     method: PUT
                             delete:
                                 href: 'http://test.com/items/id2'
                                 templated: false
-                                rels: {  }
+                                rels: {}
                                 attributes:
                                     method: DELETE
                     -
@@ -137,19 +138,19 @@ final class YamlTypeEncoderTest extends TestCase
                             read:
                                 href: 'http://test.com/items/id3'
                                 templated: false
-                                rels: {  }
+                                rels: {}
                                 attributes:
                                     method: GET
                             update:
                                 href: 'http://test.com/items/id3'
                                 templated: false
-                                rels: {  }
+                                rels: {}
                                 attributes:
                                     method: PUT
                             delete:
                                 href: 'http://test.com/items/id3'
                                 templated: false
-                                rels: {  }
+                                rels: {}
                                 attributes:
                                     method: DELETE
             _links:
