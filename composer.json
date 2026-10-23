@@ -23,18 +23,18 @@
         "ext-dom": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "symfony/yaml": "^6.4.45|^7.4.18|^8.1.6"
+        "symfony/yaml": "^6.4.48|^7.4.21|^8.1.9"
     },
     "require-dev": {
-        "chubbyphp/chubbyphp-container": "^2.5.2",
+        "chubbyphp/chubbyphp-container": "^2.5.3",
         "chubbyphp/chubbyphp-dev-helper": "dev-master",
-        "chubbyphp/chubbyphp-laminas-config-factory": "^1.5.3",
-        "chubbyphp/chubbyphp-mock": "^2.2.2",
-        "infection/infection": "^0.35.4",
+        "chubbyphp/chubbyphp-laminas-config-factory": "^1.5.5",
+        "chubbyphp/chubbyphp-mock": "^2.2.5",
+        "infection/infection": "^0.35.8",
         "php-coveralls/php-coveralls": "^2.9.1",
         "phpstan/extension-installer": "^1.4.3",
-        "phpstan/phpstan": "^2.2.13",
-        "phpunit/phpunit": "^12.5.34",
+        "phpstan/phpstan": "^2.3.1",
+        "phpunit/phpunit": "^12.5.40",
         "psr/container": "^2.0.2"
     },
     "autoload": {

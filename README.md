@@ -26,11 +26,11 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 ## Requirements
 
  * php: ^8.3
- * symfony/yaml: ^6.4.45|^7.4.18|^8.1.6
+ * symfony/yaml: ^6.4.48|^7.4.21|^8.1.9
 
 ## Suggest
 
- * chubbyphp/chubbyphp-container: ^2.5.2
+ * chubbyphp/chubbyphp-container: ^2.5.3
  * psr/container: ^1.1.2|^2.0.2
 
 ## Installation
