@@ -22,6 +22,15 @@ final class YamlTypeEncoderTest extends TestCase
         self::assertSame('application/x-yaml', $encoder->getContentType());
     }
 
+    public function testWithCustomContentType(): void
+    {
+        $encoder = new YamlTypeEncoder('application/yaml');
+
+        self::assertSame('application/yaml', $encoder->getContentType());
+
+        self::assertSame('key: value', $encoder->encode(['key' => 'value']));
+    }
+
     #[DataProviderExternal(TypeEncoderDataProvider::class, 'getExpectedData')]
     public function testFormat(array $data): void
     {

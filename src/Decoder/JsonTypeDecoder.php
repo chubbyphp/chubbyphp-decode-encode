@@ -8,9 +8,11 @@ use Chubbyphp\DecodeEncode\RuntimeException;
 
 final class JsonTypeDecoder implements TypeDecoderInterface
 {
+    public function __construct(private readonly string $contentType = 'application/json') {}
+
     public function getContentType(): string
     {
-        return 'application/json';
+        return $this->contentType;
     }
 
     /**

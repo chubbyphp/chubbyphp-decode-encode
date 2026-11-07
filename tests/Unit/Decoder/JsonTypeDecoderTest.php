@@ -23,6 +23,27 @@ final class JsonTypeDecoderTest extends TestCase
         self::assertSame('application/json', $decoder->getContentType());
     }
 
+    public function testWithCustomContentType(): void
+    {
+        $decoder = new JsonTypeDecoder('application/problem+json');
+
+        self::assertSame('application/problem+json', $decoder->getContentType());
+
+        self::assertSame(
+            ['type' => 'about:blank', 'status' => 400],
+            $decoder->decode('{"type":"about:blank","status":400}')
+        );
+    }
+
+    public function testInvalidDecodeWithCustomContentType(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Data is not parsable with content-type: "application/problem+json", error: "Syntax error"');
+
+        $decoder = new JsonTypeDecoder('application/problem+json');
+        $decoder->decode('{"key": "value"');
+    }
+
     #[DataProviderExternal(TypeDecoderDataProvider::class, 'getExpectedData')]
     public function testDecode(array $expectedData): void
     {

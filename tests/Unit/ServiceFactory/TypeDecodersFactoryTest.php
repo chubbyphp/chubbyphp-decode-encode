@@ -6,6 +6,8 @@ namespace Chubbyphp\Tests\DecodeEncode\Unit\ServiceFactory;
 
 use Chubbyphp\DecodeEncode\Decoder\JsonTypeDecoder;
 use Chubbyphp\DecodeEncode\Decoder\JsonxTypeDecoder;
+use Chubbyphp\DecodeEncode\Decoder\NdjsonTypeDecoder;
+use Chubbyphp\DecodeEncode\Decoder\TypeDecoderInterface;
 use Chubbyphp\DecodeEncode\Decoder\UrlEncodedTypeDecoder;
 use Chubbyphp\DecodeEncode\Decoder\YamlTypeDecoder;
 use Chubbyphp\DecodeEncode\ServiceFactory\TypeDecodersFactory;
@@ -26,17 +28,32 @@ final class TypeDecodersFactoryTest extends TestCase
 
         self::assertIsArray($typeDecoders);
 
-        self::assertCount(4, $typeDecoders);
+        self::assertCount(10, $typeDecoders);
 
-        self::assertInstanceOf(JsonTypeDecoder::class, array_shift($typeDecoders));
+        self::assertSame([
+            JsonTypeDecoder::class,
+            JsonxTypeDecoder::class,
+            NdjsonTypeDecoder::class,
+            NdjsonTypeDecoder::class,
+            NdjsonTypeDecoder::class,
+            NdjsonTypeDecoder::class,
+            NdjsonTypeDecoder::class,
+            UrlEncodedTypeDecoder::class,
+            YamlTypeDecoder::class,
+            YamlTypeDecoder::class,
+        ], array_map(static fn (TypeDecoderInterface $typeDecoder) => $typeDecoder::class, $typeDecoders));
 
-        /** @var JsonxTypeDecoder $jsonxTypeDecoder */
-        $jsonxTypeDecoder = array_shift($typeDecoders);
-        self::assertInstanceOf(JsonxTypeDecoder::class, $jsonxTypeDecoder);
-
-        self::assertSame('application/jsonx+xml', $jsonxTypeDecoder->getContentType());
-
-        self::assertInstanceOf(UrlEncodedTypeDecoder::class, array_shift($typeDecoders));
-        self::assertInstanceOf(YamlTypeDecoder::class, array_shift($typeDecoders));
+        self::assertSame([
+            'application/json',
+            'application/jsonx+xml',
+            'application/jsonl',
+            'application/x-jsonl',
+            'text/jsonl',
+            'application/ndjson',
+            'application/x-ndjson',
+            'application/x-www-form-urlencoded',
+            'application/x-yaml',
+            'application/yaml',
+        ], array_map(static fn (TypeDecoderInterface $typeDecoder) => $typeDecoder->getContentType(), $typeDecoders));
     }
 }

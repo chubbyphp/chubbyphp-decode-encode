@@ -8,9 +8,11 @@ use Symfony\Component\Yaml\Yaml;
 
 final class YamlTypeEncoder implements TypeEncoderInterface
 {
+    public function __construct(private readonly string $contentType = 'application/x-yaml') {}
+
     public function getContentType(): string
     {
-        return 'application/x-yaml';
+        return $this->contentType;
     }
 
     /**

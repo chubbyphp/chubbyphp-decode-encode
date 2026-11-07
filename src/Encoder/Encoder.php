@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Chubbyphp\DecodeEncode\Encoder;
 
 use Chubbyphp\DecodeEncode\LogicException;
+use Chubbyphp\DecodeEncode\RuntimeException;
 
 final class Encoder implements EncoderInterface
 {
@@ -35,6 +36,7 @@ final class Encoder implements EncoderInterface
      * @param array<string, mixed> $data
      *
      * @throws LogicException
+     * @throws RuntimeException
      */
     public function encode(array $data, string $contentType): string
     {

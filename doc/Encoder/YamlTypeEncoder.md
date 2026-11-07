@@ -13,3 +13,16 @@ echo $encoderType->getContentType();
 echo $encoderType->encode(['name' => 'php']);
 // 'name: php'
 ```
+
+## with custom content type
+
+```php
+<?php
+
+use Chubbyphp\DecodeEncode\Encoder\YamlTypeEncoder;
+
+$encoderType = new YamlTypeEncoder('application/yaml');
+
+echo $encoderType->getContentType();
+// 'application/yaml'
+```

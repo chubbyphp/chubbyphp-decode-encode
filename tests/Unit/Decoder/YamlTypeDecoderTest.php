@@ -23,6 +23,15 @@ final class YamlTypeDecoderTest extends TestCase
         self::assertSame('application/x-yaml', $decoder->getContentType());
     }
 
+    public function testWithCustomContentType(): void
+    {
+        $decoder = new YamlTypeDecoder('application/yaml');
+
+        self::assertSame('application/yaml', $decoder->getContentType());
+
+        self::assertSame(['key' => 'value'], $decoder->decode('key: value'));
+    }
+
     #[DataProviderExternal(TypeDecoderDataProvider::class, 'getExpectedData')]
     public function testDecode(array $expectedData): void
     {

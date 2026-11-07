@@ -30,4 +30,21 @@ final class RuntimeExceptionTest extends TestCase
             $exception->getMessage()
         );
     }
+
+    public function testCreateNotEncodableWithoutError(): void
+    {
+        $exception = RuntimeException::createNotEncodable('application/jsonl');
+
+        self::assertSame('Data is not encodable with content-type: "application/jsonl"', $exception->getMessage());
+    }
+
+    public function testCreateNotEncodableWithError(): void
+    {
+        $exception = RuntimeException::createNotEncodable('application/jsonl', 'Not a list');
+
+        self::assertSame(
+            'Data is not encodable with content-type: "application/jsonl", error: "Not a list"',
+            $exception->getMessage()
+        );
+    }
 }

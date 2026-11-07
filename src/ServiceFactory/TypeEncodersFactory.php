@@ -6,6 +6,7 @@ namespace Chubbyphp\DecodeEncode\ServiceFactory;
 
 use Chubbyphp\DecodeEncode\Encoder\JsonTypeEncoder;
 use Chubbyphp\DecodeEncode\Encoder\JsonxTypeEncoder;
+use Chubbyphp\DecodeEncode\Encoder\NdjsonTypeEncoder;
 use Chubbyphp\DecodeEncode\Encoder\TypeEncoderInterface;
 use Chubbyphp\DecodeEncode\Encoder\UrlEncodedTypeEncoder;
 use Chubbyphp\DecodeEncode\Encoder\YamlTypeEncoder;
@@ -26,8 +27,14 @@ final class TypeEncodersFactory
         return [
             new JsonTypeEncoder($debug),
             new JsonxTypeEncoder($debug),
+            new NdjsonTypeEncoder(),
+            new NdjsonTypeEncoder('application/x-jsonl'),
+            new NdjsonTypeEncoder('text/jsonl'),
+            new NdjsonTypeEncoder('application/ndjson'),
+            new NdjsonTypeEncoder('application/x-ndjson'),
             new UrlEncodedTypeEncoder(),
             new YamlTypeEncoder(),
+            new YamlTypeEncoder('application/yaml'),
         ];
     }
 }

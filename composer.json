@@ -1,12 +1,14 @@
 {
     "name": "chubbyphp/chubbyphp-decode-encode",
-    "description": "Chubbyphp decode/encode json/jsonx/url-encoded/xml/yaml",
+    "description": "Chubbyphp decode/encode json/jsonx/ndjson/url-encoded/xml/yaml",
     "keywords": [
         "chubbyphp",
+        "content-type",
         "decode",
         "encode",
         "json",
         "jsonx",
+        "ndjson",
         "url-encoded",
         "xml",
         "yaml"
@@ -56,7 +58,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.4-dev"
+            "dev-master": "1.5-dev"
         }
     },
     "scripts": {

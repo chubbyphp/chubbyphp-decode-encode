@@ -22,6 +22,27 @@ final class JsonTypeEncoderTest extends TestCase
         self::assertSame('application/json', $encoder->getContentType());
     }
 
+    public function testWithCustomContentType(): void
+    {
+        $encoder = new JsonTypeEncoder(false, 'application/problem+json');
+
+        self::assertSame('application/problem+json', $encoder->getContentType());
+
+        self::assertSame(
+            '{"type":"about:blank","status":400}',
+            $encoder->encode(['type' => 'about:blank', 'status' => 400])
+        );
+    }
+
+    public function testWithCustomContentTypeAndPrettyPrint(): void
+    {
+        $encoder = new JsonTypeEncoder(true, 'application/problem+json');
+
+        self::assertSame('application/problem+json', $encoder->getContentType());
+
+        self::assertSame("{\n    \"status\": 400\n}", $encoder->encode(['status' => 400]));
+    }
+
     #[DataProviderExternal(TypeEncoderDataProvider::class, 'getExpectedData')]
     public function testFormat(array $data): void
     {

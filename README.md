@@ -21,7 +21,7 @@
 
 ## Description
 
-A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
+Decode and encode request/response bodies by content type: json, jsonx, ndjson (json lines), url-encoded, xml and yaml.
 
 ## Requirements
 
@@ -38,7 +38,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [Composer](http://getcomposer.org) as [chubbyphp/chubbyphp-decode-encode][1].
 
 ```sh
-composer require chubbyphp/chubbyphp-decode-encode "^1.4"
+composer require chubbyphp/chubbyphp-decode-encode "^1.5"
 ```
 
 ## Usage
@@ -51,6 +51,7 @@ composer require chubbyphp/chubbyphp-decode-encode "^1.4"
 use Chubbyphp\DecodeEncode\Decoder\Decoder;
 use Chubbyphp\DecodeEncode\Decoder\JsonTypeDecoder;
 use Chubbyphp\DecodeEncode\Decoder\JsonxTypeDecoder;
+use Chubbyphp\DecodeEncode\Decoder\NdjsonTypeDecoder;
 use Chubbyphp\DecodeEncode\Decoder\UrlEncodedTypeDecoder;
 use Chubbyphp\DecodeEncode\Decoder\XmlTypeDecoder;
 use Chubbyphp\DecodeEncode\Decoder\YamlTypeDecoder;
@@ -58,6 +59,7 @@ use Chubbyphp\DecodeEncode\Decoder\YamlTypeDecoder;
 $decoder = new Decoder([
     new JsonTypeDecoder(),
     new JsonxTypeDecoder(),
+    new NdjsonTypeDecoder(),
     new UrlEncodedTypeDecoder(),
     new XmlTypeDecoder(),
     new YamlTypeDecoder()
@@ -67,6 +69,7 @@ print_r($decoder->getContentTypes());
 //[
 //    'application/json',
 //    'application/jsonx+xml',
+//    'application/jsonl',
 //    'application/x-www-form-urlencoded',
 //    'application/xml',
 //    'application/x-yaml'
@@ -77,12 +80,19 @@ print_r($decoder->decode(
     'application/json'
 ));
 // ['name' => 'php']
+
+print_r($decoder->decode(
+    "{\"name\": \"php\"}\n{\"name\": \"typescript\"}\n",
+    'application/jsonl'
+));
+// [['name' => 'php'], ['name' => 'typescript']]
 ```
 
 #### Type Decoder
 
  * [JsonTypeDecoder][3]
  * [JsonxTypeDecoder][4]
+ * [NdjsonTypeDecoder][8]
  * [UrlEncodedTypeDecoder][5]
  * [XmlTypeDecoder][6]
  * [YamlTypeDecoder][7]
@@ -97,6 +107,7 @@ print_r($decoder->decode(
 use Chubbyphp\DecodeEncode\Encoder\Encoder;
 use Chubbyphp\DecodeEncode\Encoder\JsonTypeEncoder;
 use Chubbyphp\DecodeEncode\Encoder\JsonxTypeEncoder;
+use Chubbyphp\DecodeEncode\Encoder\NdjsonTypeEncoder;
 use Chubbyphp\DecodeEncode\Encoder\UrlEncodedTypeEncoder;
 use Chubbyphp\DecodeEncode\Encoder\XmlTypeEncoder;
 use Chubbyphp\DecodeEncode\Encoder\YamlTypeEncoder;
@@ -104,6 +115,7 @@ use Chubbyphp\DecodeEncode\Encoder\YamlTypeEncoder;
 $encoder = new Encoder([
     new JsonTypeEncoder(),
     new JsonxTypeEncoder(),
+    new NdjsonTypeEncoder(),
     new UrlEncodedTypeEncoder(),
     new XmlTypeEncoder(),
     new YamlTypeEncoder()
@@ -113,6 +125,7 @@ print_r($encoder->getContentTypes());
 //[
 //    'application/json',
 //    'application/jsonx+xml',
+//    'application/jsonl',
 //    'application/x-www-form-urlencoded',
 //    'application/xml',
 //    'application/x-yaml'
@@ -122,13 +135,20 @@ echo $encoder->encode(
     ['name' => 'php'],
     'application/json'
 );
-// '{"name": "php"}'
+// '{"name":"php"}'
+
+echo $encoder->encode(
+    [['name' => 'php'], ['name' => 'typescript']],
+    'application/jsonl'
+);
+// "{\"name\":\"php\"}\n{\"name\":\"typescript\"}\n"
 ```
 
 #### Type Encoder
 
  * [JsonTypeEncoder][11]
  * [JsonxTypeEncoder][12]
+ * [NdjsonTypeEncoder][16]
  * [UrlEncodedTypeEncoder][13]
  * [XmlTypeEncoder][14]
  * [YamlTypeEncoder][15]
@@ -154,12 +174,14 @@ echo $encoder->encode(
 [5]: doc/Decoder/UrlEncodedTypeDecoder.md
 [6]: doc/Decoder/XmlTypeDecoder.md
 [7]: doc/Decoder/YamlTypeDecoder.md
+[8]: doc/Decoder/NdjsonTypeDecoder.md
 
 [11]: doc/Encoder/JsonTypeEncoder.md
 [12]: doc/Encoder/JsonxTypeEncoder.md
 [13]: doc/Encoder/UrlEncodedTypeEncoder.md
 [14]: doc/Encoder/XmlTypeEncoder.md
 [15]: doc/Encoder/YamlTypeEncoder.md
+[16]: doc/Encoder/NdjsonTypeEncoder.md
 
 [20]: doc/ServiceFactory/DecoderFactory.md
 [21]: doc/ServiceFactory/EncoderFactory.md
